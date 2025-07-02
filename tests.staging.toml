@@ -1,0 +1,22 @@
+# Test configuration for TigerClaw
+
+[orchestration]
+enabled = true
+
+[sas_data_import]
+enabled = true
+
+[dynamo_db]
+enabled = true
+
+[migration_api]
+enabled = false
+
+[globals]
+environment = "staging"
+force = false
+advertiser_id = 424242
+external_id = 242424
+migration_name = "sas"
+base_growth_migration_url="http://growth-account-migration-service.cloudmap.eu-west-1.springfield-staging.awin-aws.com/"
+base_sas_data_import_url="http://sas-data-import.cloudmap.eu-west-1.springfield-staging.awin-aws.com/"

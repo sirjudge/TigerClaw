@@ -1,0 +1,28 @@
+# Dev Test configuration for TigerClaw
+[orchestration]
+enabled = true
+step_to_run = "VALID"
+step_status_to_force="INIT_DONE"
+force_run = true
+
+[sas_data_import]
+enabled = false
+
+[dynamo_db]
+enabled = false
+
+[migration_api]
+enabled = false
+
+[globals]
+environment="dev"
+advertiser_id = 424242
+external_id = 44911
+migration_name = "sas"
+# Note: These ports are used for the aws ssm command
+# base_growth_migration_url="http://localhost"
+base_growth_migration_url="https://growth-account-migration-service.springfield-dev.aws.awin.com"
+# base_growth_migration_port=8080
+base_growth_migration_port=443
+base_sas_data_import_url="http://localhost"
+base_sas_data_import_port=8181

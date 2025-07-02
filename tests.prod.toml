@@ -1,0 +1,22 @@
+# Test configuration for TigerClaw
+
+[orchestration]
+enabled = true
+
+[sas_data_import]
+enabled = true
+
+[dynamo_db]
+enabled = true
+
+[migration_api]
+enabled = false
+
+[globals]
+environment="prod"
+force = false
+advertiser_id = 424242
+external_id = 242424
+migration_name = "sas"
+base_growth_migration_url=""
+base_sas_data_import_url=""

@@ -1,0 +1,26 @@
+# Dev Test configuration for TigerClaw
+[orchestration]
+enabled = false
+step_to_run = "VALID"
+step_status_to_force="INIT_DONE"
+force_run = true
+
+[sas_data_import]
+enabled = true
+
+[dynamo_db]
+enabled = false
+
+[migration_api]
+enabled = false
+
+[globals]
+environment="local"
+advertiser_id = 424242
+# external_id = 242424
+external_id = 44911
+migration_name = "sas"
+base_growth_migration_url="http://localhost"
+base_growth_migration_port=8080
+base_sas_data_import_url="http://localhost"
+base_sas_data_import_port=8181
