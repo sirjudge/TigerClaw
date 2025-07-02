@@ -45,35 +45,6 @@ pub struct Merchant {
     #[serde(rename = "advertiserPlatformPlan")]
     pub advertiser_platform_plan: String,
 }
-// #[derive(Debug, Serialize, Deserialize)]
-// pub struct Merchant {
-//     #[serde(rename = "merchantId")]
-//     pub merchant_id: i64,
-//     pub organization: String,
-//     pub username: String,
-//     pub email: String,
-//     pub first_name: String,
-//     pub last_name: String,
-//     pub address: String,
-//     pub address2: String,
-//     pub city: String,
-//     pub state: String,
-//     pub country: String,
-//     pub zip: String,
-//     pub phone: String,
-//     pub bio: String,
-//     pub category: String,
-//     pub agreement: String,
-//     pub logo_file: String,
-//     pub data_feeds: Option<i64>,
-//     pub external_id: i64,
-//     pub is_private: Option<bool>,
-//     pub approved: Option<bool>,
-//     pub setup_step: String,
-//     pub balance: Option<f64>,
-//     pub credit_limit: Option<f64>,
-//     pub advertiser_platform_plan: String,
-// }
 
 impl Merchant {
     pub fn test_merchant() -> Self {

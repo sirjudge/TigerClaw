@@ -33,12 +33,10 @@ pub async fn run(test_config: &TestConfig) {
 fn get_api_key() -> Option<String> {
     match env::var("AWIN_SAS_DATA_IMPORT_API_SECRET") {
         Ok(secret) => {
-            println!("Found SAS Data Import API secret");
             Some(secret)
         }
         Err(_) => {
-            error!("SAS Data Import API secret not found in environment variables");
-            None
+            panic!("SAS Data Import API secret not found in environment variables");
         }
     }
 }
@@ -60,18 +58,20 @@ async fn health_check(client: reqwest::Client, test_config: &TestConfig) {
             match response.json::<SasDataImport>().await {
                 Ok(status) => {
                     if status.status != "UP" {
-                        println!(
+                        eprintln!(
                             "ERROR:SAS Data Import service is not returning UP status: {:?}",
                             status
                         );
                     }
-                    println!(
-                        "SAS Data Import service is running with status: {:?}",
-                        status.status
-                    );
+                    else {
+                        println!(
+                            "SAS Data Import service is running with status: {:?}",
+                            status.status
+                        );
+                    }
                 }
                 Err(error) => {
-                    println!(
+                    eprintln!(
                         "ERROR:Failed to parse response from SAS data import: {:?}",
                         error
                     );
@@ -79,11 +79,9 @@ async fn health_check(client: reqwest::Client, test_config: &TestConfig) {
             }
         }
         Err(error) => {
-            println!("ERROR:sas_data_import ping request error: {:?}", error);
+            eprintln!("ERROR:sas_data_import ping request error: {:?}", error);
         }
     }
-
-    println!("Health check method completed");
 }
 
 async fn merchant_extraction(
@@ -120,7 +118,7 @@ async fn merchant_extraction(
             Ok(merchant)
         }
         Err(e) => {
-            error!("Failed to parse merchant data: {:?}", e);
+            eprintln!("Failed to parse merchant data: {:?}", e);
             return Err(Box::new(e));
         }
     }

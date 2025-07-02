@@ -1,5 +1,8 @@
 use crate::{
-    advertiser, config::TestConfig, orchestration_status::*, request::growth_migration_post,
+    advertiser,
+    config::TestConfig,
+    orchestration_status::*,
+    request::growth_migration_post,
 };
 
 /// Executes the orchestrator workflow for a given advertiser
@@ -68,10 +71,10 @@ pub async fn run(auth_token: &str, test_config: &TestConfig) {
                     "Failed to force status update for merchant ID {}: {}",
                     external_id, error
                 );
-                eprintln!()
             }
         }
     }
+
     println!(
         "Running orchestration step{} for advertiser {}",
         test_config.orchestration.step_to_run, external_id
@@ -87,7 +90,6 @@ pub async fn run(auth_token: &str, test_config: &TestConfig) {
     .await
     {
         Ok(response) => {
-            println!("Successfully executed step: {:?}", &test_config.orchestration.step_to_run);
             if response.status().is_success() {
                 println!(
                     "SAS migration started successfully for merchant_id: {}",
@@ -103,8 +105,7 @@ pub async fn run(auth_token: &str, test_config: &TestConfig) {
             }
         }
         Err(e) => {
-            eprintln!("{:?}", e);
-            eprintln!("Failed to execute step: {}", e);
+            eprintln!("Failed to execute step: {:?}", e);
         }
     }
 }

@@ -22,6 +22,7 @@ pub enum OrchestratorError {
     UnexpectedStatus(reqwest::StatusCode),
 }
 
+/// Implementation for mapping error enums to an error string
 impl fmt::Display for OrchestratorError {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
@@ -39,6 +40,8 @@ impl fmt::Display for OrchestratorError {
     }
 }
 
+
+/// Mirror the growth-account-migration-service enum values
 #[derive(Debug, Clone, PartialEq)]
 pub enum MigrationStatus {
     // Initialization states

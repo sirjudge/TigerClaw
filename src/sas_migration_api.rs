@@ -16,7 +16,7 @@ pub async fn run(merchant_id: &i32, token: &str, test_config: &TestConfig) {
 }
 
 async fn enable_lockdown(merchant_id: &i32, token: &str, test_config: &TestConfig) {
-    println!("Enabling lockdown...");
+    println!("sending lockdown request for mid:{}", merchant_id);
     let endpoint_path = format!("sasMigrationApi/lockdown/{}", merchant_id);
     match growth_migration_post(&endpoint_path, token.to_string(), test_config).await {
         Ok(response) => {
@@ -36,12 +36,10 @@ async fn enable_lockdown(merchant_id: &i32, token: &str, test_config: &TestConfi
             }
         }
         Err(e) => {
-            println!("Error: {:?}", e);
-            let error_message = format!(
+            eprintln!(
                 "Failed to lock merchant_id: {}. Error Message: {}",
                 merchant_id, e
             );
-            eprintln!("{}", error_message);
         }
     };
 }
