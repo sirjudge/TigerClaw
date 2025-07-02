@@ -126,9 +126,15 @@ async fn get_token(token_variable_name: &str, enviornmnet: &Environment) -> Stri
             let url = match enviornmnet {
                 Environment::Local => "http://ui.d-lhr1-docker-026.dev.awin.com/idpbackend/token",
                 Environment::Dev => "http://ui.d-lhr1-docker-026.dev.awin.com/idpbackend/token",
+                // Staging and production should remain unimplemented for now and should
+                // use the official migration UI instead
                 Environment::Staging => unimplemented!(),
                 Environment::Production => unimplemented!(),
             };
+
+            // Make the post and parse the token out.
+            // if we fail to retrieve the token we should fail gracefully
+            // as we do not need this same token for sas data import API calls
             match client.post(url).form(&params).send().await {
                 Ok(response) => {
                     if !response.status().is_success() {
@@ -142,7 +148,6 @@ async fn get_token(token_variable_name: &str, enviornmnet: &Environment) -> Stri
                         );
                         return "".to_string();
                     }
-
                     let body = response.json::<TokenRetrievalBody>().await;
                     match body {
                         Ok(body) => {

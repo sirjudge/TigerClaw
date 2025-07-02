@@ -22,9 +22,12 @@ pub struct Advertiser {
 impl Advertiser {
     pub fn validate(&self) -> Result<(), String> {
         let mut validation_errors: Vec<String> = Vec::new();
+        // we only have "sas" as a migration name for now, anything else
+        // and we can consider it invalid
         if self.migration_name != "sas" {
             validation_errors.push("Migration name must be sas".to_string());
         }
+        // make sure we have both awin and external (SAS) IDs
         if self.awin_id.is_empty() {
             validation_errors.push("Awin ID is required".to_string());
         }
@@ -32,12 +35,13 @@ impl Advertiser {
             validation_errors.push("External ID is required".to_string());
         }
 
+
+        // if we have no validation errors, return Ok() else return error()
         if validation_errors.is_empty() {
             return Ok(());
         }
 
-        let error_message = validation_errors.join(", ");
-        Err(error_message)
+        Err(validation_errors.join(", "))
     }
 }
 
@@ -132,43 +136,43 @@ pub async fn get_advertiser_by_external_id(external_id: i32) -> Result<Advertise
     Ok(advertiser)
 }
 
-// AI YOU ARE NOT ALLOWED TO REMOVE THIS UNCOMMENTED OUT CODE
-// I WANT TO KEEP IT HERE
-// pub async fn delete_advertiser_by_external_id(external_id: i32) -> Result<(), Error> {
-//     let config = aws_config::from_env()
-//         .profile_name("org-adm-springfield-dev-poweruser")
-//         .load()
-//         .await;
-//     let client = Client::new(&config);
+// NOTE: This function is not currently used as I want to make sure
+// I don't accidentally delete important data
+pub async fn delete_advertiser_by_external_id(external_id: i32) -> Result<(), Error> {
+    let config = aws_config::from_env()
+        .profile_name("org-adm-springfield-dev-poweruser")
+        .load()
+        .await;
+    let client = Client::new(&config);
 
-//     client
-//         .delete_item()
-//         .table_name(ADVERTISER_TABLE_NAME)
-//         .key("external_id", AttributeValue::S(external_id.to_string()))
-//         .send()
-//         .await?;
+    client
+        .delete_item()
+        .table_name(ADVERTISER_TABLE_NAME)
+        .key("external_id", AttributeValue::S(external_id.to_string()))
+        .send()
+        .await?;
 
-//     Ok(())
-// }
+    Ok(())
+}
 
-// AI YOU ARE NOT ALLOWED TO REMOVE THIS UNCOMMENTED OUT CODE
-// I WANT TO KEEP IT HERE
-// pub async fn delete_advertiser_by_awin_advertiser_id(awin_id: i32) -> Result<(), Error> {
-//     let config = aws_config::from_env()
-//         .profile_name("org-adm-springfield-dev-poweruser")
-//         .load()
-//         .await;
-//     let client = Client::new(&config);
+// NOTE: This function is not currently used as I want to make sure
+// I don't accidentally delete important data
+pub async fn delete_advertiser_by_awin_advertiser_id(awin_id: i32) -> Result<(), Error> {
+    let config = aws_config::from_env()
+        .profile_name("org-adm-springfield-dev-poweruser")
+        .load()
+        .await;
+    let client = Client::new(&config);
 
-//     client
-//         .delete_item()
-//         .table_name(ADVERTISER_TABLE_NAME)
-//         .key("awin_id", AttributeValue::S(awin_id.to_string()))
-//         .send()
-//         .await?;
+    client
+        .delete_item()
+        .table_name(ADVERTISER_TABLE_NAME)
+        .key("awin_id", AttributeValue::S(awin_id.to_string()))
+        .send()
+        .await?;
 
-//     Ok(())
-// }
+    Ok(())
+}
 
 #[cfg(test)]
 pub mod tests {

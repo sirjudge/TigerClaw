@@ -14,11 +14,7 @@ async fn main() {
         error!("Configuration validation failed, exiting.");
         return;
     }
-    else {
-        println!("Configuration validation passed.");
-    }
-
-    println!("loaded configuration from: {} and running ", args.get_config_path());
+    println!("Configuration validation passed. loaded configuration from: {} and running ", args.get_config_path());
 
     // if we've passed in advertiser_id on top of the config file throw a warning
     if args.advertiser_id.is_some() {
