@@ -12,7 +12,6 @@ pub async fn growth_migration_get(
         test_config.globals.base_growth_migration_port,
         endpoint_path
     );
-    println!("JWT Token: {}", jwt_token);
     let client = reqwest::Client::new();
     client
         .get(&url)
@@ -32,9 +31,7 @@ pub async fn growth_migration_post(
         test_config.globals.base_growth_migration_port,
         endpoint_path
     );
-    println!("POST URL: {}", url);
     let client = reqwest::Client::new();
-    println!("JWT Token: {}", jwt_token);
     client
         .post(&url)
         .header("Authorization", format!("Bearer {}", jwt_token))
